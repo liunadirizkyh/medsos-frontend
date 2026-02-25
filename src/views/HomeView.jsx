@@ -5,6 +5,7 @@ const HomeView = () => {
     <div>
       <h1 className="text-info">Home View</h1>
       <CiInstagram />
+      <div>test</div>
     </div>
   );
 };
