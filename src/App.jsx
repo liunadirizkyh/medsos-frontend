@@ -3,6 +3,7 @@ import HomeView from "./views/homeView";
 import LoginView from "./views/LoginView";
 import RegisterView from "./views/RegisterView";
 import DetailUserView from "./views/DetailUserView";
+import AuthLayout from "./layout/AuthLayout";
 
 function App() {
   return (
@@ -10,8 +11,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/:username" element={<DetailUserView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/register" element={<RegisterView />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/register" element={<RegisterView />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
