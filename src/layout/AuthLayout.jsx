@@ -2,8 +2,9 @@ import { Outlet } from "react-router";
 
 const AuthLayout = () => {
   return (
-    <>
-      <main className="min-h-[80vh] flex items-center justify-center bg-base-200">
+    // make wrapper a full-height column so footer stays at bottom
+    <div className="flex flex-col min-h-screen">
+      <main className="grow flex items-center justify-center bg-base-200">
         <Outlet />
       </main>
       <footer className="footer footer-horizontal footer-center bg-info/5 text-base-content rounded p-10">
@@ -20,7 +21,7 @@ const AuthLayout = () => {
           </p>
         </aside>
       </footer>
-    </>
+    </div>
   );
 };
 
