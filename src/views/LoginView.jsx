@@ -15,16 +15,16 @@ const LoginView = () => {
           {/* login */}
           <div className="card bg-base-100">
             <div className="card-body px-8 py-10">
-              <h1 className="text-5xl font-bold text-center mb-8">VistaGram</h1>
+              <h1 className="text-5xl font-logo text-center mb-8">VistaGram</h1>
               <input
                 type="text"
                 placeholder="Emai"
-                className="input input-bordered w-full bg-base-200"
+                className="input w-full bg-base-200"
               />
               <input
                 type="password"
-                placeholder="password"
-                className="input input-bordered w-full bg-base-200 mb-3"
+                placeholder="Password"
+                className="input w-full bg-base-200 mb-3"
               />
               <button className="btn w-full bg-info">Login</button>
             </div>
