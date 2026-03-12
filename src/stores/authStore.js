@@ -1,8 +1,20 @@
 import { create } from "zustand";
+// import { devtools } from "zustand/middleware";
 
-export const useBear = create((set) => ({
-  bears: 3,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-  updateBears: (newBears) => set({ bears: newBears }),
+export const useAuth = create((set) => ({
+  token: localStorage.getItem("token") || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  isAuthentication: !!JSON.parse(localStorage.getItem("token")),
+
+  setTokenData: (token, user) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    set({ token, user, isAuthentication: true });
+  },
+
+  removeTokenData: () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    set({ token: null, user: null, isAuthentication: false });
+  },
 }));

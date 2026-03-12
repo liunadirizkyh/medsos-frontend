@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
 import {
   FaHome,
   FaPlusSquare,
@@ -6,8 +6,17 @@ import {
   FaSignOutAlt,
   FaUserCircle,
 } from "react-icons/fa";
+import { useAuth } from "../stores/authStore";
 
 const HomeLayout = () => {
+  const { removeTokenData } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeTokenData();
+    navigate("/login");
+  };
+
   return (
     <div className="flex min-h-screen bg-base-200">
       {/* sidebar desktop */}
@@ -37,7 +46,12 @@ const HomeLayout = () => {
             </li>
           </ul>
         </div>
-        <button className="btn btn-outline btn-sm text-error">Logout</button>
+        <button
+          className="btn btn-outline btn-sm text-error"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </aside>
 
       {/* sidebar tablet */}
@@ -48,7 +62,10 @@ const HomeLayout = () => {
         <FaSearch className="tesxt-2xl cursor-pointer" />
         <FaPlusSquare className="tesxt-2xl cursor-pointer" />
         <FaUserCircle className="tesxt-2xl cursor-pointer" />
-        <FaSignOutAlt className="tesxt-2xl cursor-pointer text-error" />
+        <FaSignOutAlt
+          className="tesxt-2xl cursor-pointer text-error"
+          onClick={handleLogout}
+        />
       </aside>
 
       {/* main */}
@@ -61,7 +78,10 @@ const HomeLayout = () => {
         <FaSearch className="text-xl cursor-pointer" />
         <FaPlusSquare className="text-xl cursor-pointer" />
         <FaUserCircle className="text-xl cursor-pointer" />
-        <FaSignOutAlt className="text-xl cursor-pointer text-error" />
+        <FaSignOutAlt
+          className="text-xl cursor-pointer text-error"
+          onClick={handleLogout}
+        />
       </nav>
     </div>
   );

@@ -5,8 +5,11 @@ import {
   FaRegComment,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import { useAuth } from "../stores/authStore";
 
 const HomeView = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <main className="flex-1 flex justify-center pb-16 md:pb-0">
@@ -20,7 +23,9 @@ const HomeView = () => {
                 </div>
               </div>
               <Link to={"/liunadi"}>
-                <span className="font-semibold text-sm on">Username</span>
+                <span className="font-semibold text-sm on">
+                  {user?.username || "Username"}
+                </span>
               </Link>
             </div>
             <span className="cursor-pointer">...</span>

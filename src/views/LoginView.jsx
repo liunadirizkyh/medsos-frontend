@@ -1,19 +1,35 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "../assets/images/social-media.png";
 import { customAPI } from "../config/axios";
-import { useBear } from "../stores/authStore";
+import { useState } from "react";
+import { useAuth } from "../stores/authStore";
 
 const LoginView = () => {
-  const { bears } = useBear();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [disabled, setDisabled] = useState(false);
+
+  const { setTokenData } = useAuth();
+  const navigate = useNavigate();
 
   const HandleLogin = async (e) => {
     e.preventDefault();
+    setDisabled(true);
 
     try {
-      const { data } = await customAPI.post("/auth/login", {});
+      const { data } = await customAPI.post("/auth/login", formData);
       console.log(data);
+      setTokenData(data.token, data.user);
+
+      navigate("/");
     } catch (error) {
+      setErrorMessage("Invalid email or password");
       console.log(error);
+    } finally {
+      setDisabled(false);
     }
   };
 
@@ -34,17 +50,40 @@ const LoginView = () => {
                 <h1 className="text-5xl font-logo text-center mb-8">
                   VistaGram
                 </h1>
+                {errorMessage && (
+                  <p className="text-error text-center">{errorMessage}</p>
+                )}
                 <input
                   type="text"
                   placeholder="Emai"
                   className="input w-full bg-base-200"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      email: e.target.value,
+                    })
+                  }
                 />
                 <input
                   type="password"
                   placeholder="Password"
                   className="input w-full bg-base-200 mb-3"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      password: e.target.value,
+                    })
+                  }
                 />
-                <button className="btn w-full bg-info">Login</button>
+                <button
+                  className="btn w-full bg-info"
+                  type="submit"
+                  disabled={disabled}
+                >
+                  Login
+                </button>
               </div>
             </div>
           </form>
