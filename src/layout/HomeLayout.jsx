@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Navigate, Outlet, useNavigate } from "react-router";
 import {
   FaHome,
   FaPlusSquare,
@@ -9,13 +9,17 @@ import {
 import { useAuth } from "../stores/authStore";
 
 const HomeLayout = () => {
-  const { removeTokenData } = useAuth();
+  const { removeTokenData, isAuthentication } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     removeTokenData();
     navigate("/login");
   };
+
+  if (!isAuthentication) {
+    return <Navigate to={"/login"} replace />;
+  }
 
   return (
     <div className="flex min-h-screen bg-base-200">
@@ -57,13 +61,13 @@ const HomeLayout = () => {
       {/* sidebar tablet */}
       <aside className="hidden md:flex lg:hidden w-20 shadow-md shadow-info flex-col items-center py-6 gap-8 sticky top-0 h-screen overflow-hidden">
         <Link to={"/"}>
-          <FaHome className="tesxt-2xl cursor-pointer" />
+          <FaHome className="text-2xl cursor-pointer" />
         </Link>
-        <FaSearch className="tesxt-2xl cursor-pointer" />
-        <FaPlusSquare className="tesxt-2xl cursor-pointer" />
-        <FaUserCircle className="tesxt-2xl cursor-pointer" />
+        <FaSearch className="text-2xl cursor-pointer" />
+        <FaPlusSquare className="text-2xl cursor-pointer" />
+        <FaUserCircle className="text-2xl cursor-pointer" />
         <FaSignOutAlt
-          className="tesxt-2xl cursor-pointer text-error"
+          className="text-2xl cursor-pointer text-error"
           onClick={handleLogout}
         />
       </aside>

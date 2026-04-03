@@ -1,8 +1,15 @@
 import { Outlet } from "react-router";
+import { useAuth } from "../stores/authStore";
+import { Navigate } from "react-router";
 
 const AuthLayout = () => {
+  const { isAuthentication } = useAuth();
+
+  if (isAuthentication) {
+    return <Navigate to={"/"} replace />;
+  }
+
   return (
-    // make wrapper a full-height column so footer stays at bottom
     <div className="flex flex-col min-h-screen">
       <main className="grow flex items-center justify-center bg-base-200">
         <Outlet />
