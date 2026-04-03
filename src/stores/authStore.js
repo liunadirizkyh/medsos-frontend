@@ -4,7 +4,7 @@ import { create } from "zustand";
 export const useAuth = create((set) => ({
   token: localStorage.getItem("token") || null,
   user: JSON.parse(localStorage.getItem("user")) || null,
-  isAuthentication: !!JSON.parse(localStorage.getItem("token")),
+  isAuthentication: !!localStorage.getItem("token"),
 
   setTokenData: (token, user) => {
     localStorage.setItem("token", token);
